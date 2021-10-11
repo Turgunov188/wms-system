@@ -1,0 +1,573 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "WMS api documentation",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/v1/warehouse-productions": {
+            "post": {
+                "tags": [
+                    "WarehouseProductions"
+                ],
+                "operationId": "WarehouseController@production",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "products": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/units": {
+            "get": {
+                "tags": [
+                    "Unit"
+                ],
+                "operationId": "UnitController@index",
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "ProductController@index",
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "ProductController@store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/{product}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "ProductController@show",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "ProductController@update",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "ProductController@destroy",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/materials": {
+            "get": {
+                "tags": [
+                    "Material"
+                ],
+                "operationId": "MaterialController@index",
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Material"
+                ],
+                "operationId": "MaterialController@store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/materials/{material}": {
+            "get": {
+                "tags": [
+                    "Material"
+                ],
+                "operationId": "MaterialController@show",
+                "parameters": [
+                    {
+                        "name": "material",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Material"
+                ],
+                "operationId": "MaterialController@update",
+                "parameters": [
+                    {
+                        "name": "material",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Material"
+                ],
+                "operationId": "MaterialController@destroy",
+                "parameters": [
+                    {
+                        "name": "material",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/warehouses": {
+            "get": {
+                "tags": [
+                    "Warehouse"
+                ],
+                "operationId": "WarehouseController@index",
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Warehouse"
+                ],
+                "operationId": "WarehouseController@store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "material_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "remainder": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation response"
+                    }
+                }
+            }
+        },
+        "/api/v1/warehouses/{warehouse}": {
+            "get": {
+                "tags": [
+                    "Warehouse"
+                ],
+                "operationId": "WarehouseController@show",
+                "parameters": [
+                    {
+                        "name": "warehouse",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Warehouse"
+                ],
+                "operationId": "WarehouseController@update",
+                "parameters": [
+                    {
+                        "name": "warehouse",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "material_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "remainder": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Warehouse"
+                ],
+                "operationId": "WarehouseController@destroy",
+                "parameters": [
+                    {
+                        "name": "warehouse",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/product-materials": {
+            "get": {
+                "tags": [
+                    "ProductMaterial"
+                ],
+                "operationId": "ProductMaterialController@index",
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ProductMaterial"
+                ],
+                "operationId": "ProductMaterialController@store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "material_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation response"
+                    }
+                }
+            }
+        },
+        "/api/v1/product-materials/{product_material}": {
+            "get": {
+                "tags": [
+                    "ProductMaterial"
+                ],
+                "operationId": "ProductMaterialController@show",
+                "parameters": [
+                    {
+                        "name": "product_material",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ProductMaterial"
+                ],
+                "operationId": "ProductMaterialController@update",
+                "parameters": [
+                    {
+                        "name": "product_material",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "material_id": {
+                                        "type": "integer",
+                                        "required": true
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ProductMaterial"
+                ],
+                "operationId": "ProductMaterialController@destroy",
+                "parameters": [
+                    {
+                        "name": "product_material",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
