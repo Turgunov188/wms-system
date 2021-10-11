@@ -53,7 +53,7 @@ class WarehouseController extends Controller
                     foreach ($material->warehouses as $warehouse) {
                         $amount += $warehouse['remainder'];
                         $warehouse_item = [
-                            'qty' => $warehouse['remainder'] - $all_needed,
+                            'qty' => $warehouse['remainder'],
                             'price' => $warehouse['price']
                         ];
                         $temp_material[] = array_merge($material_item, $warehouse_item);
