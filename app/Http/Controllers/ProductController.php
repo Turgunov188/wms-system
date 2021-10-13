@@ -75,7 +75,10 @@ class ProductController extends Controller
     {
         //
         try {
-            return ["data" => Product::find($product), "success" => true];
+            return [
+                "data" => $product,
+                "success" => true
+            ];
         } catch (\Exception $exception) {
             return ["error" => $exception->getMessage(), "success" => false];
         }

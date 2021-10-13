@@ -15,15 +15,15 @@ class UnitController extends Controller
     public function index()
     {
         //
-        try{
+        try {
             return [
                 "data" => Unit::all(),
                 "success" => true
             ];
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return [
-                "error"=>$exception->getMessage(),
-                "success"=>false
+                "error" => $exception->getMessage(),
+                "success" => false
             ];
         }
     }
@@ -31,7 +31,7 @@ class UnitController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +42,7 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Unit  $unit
+     * @param \App\Models\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function show(Unit $unit)
@@ -53,8 +53,8 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Unit  $unit
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Unit $unit)
@@ -65,7 +65,7 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Unit  $unit
+     * @param \App\Models\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function destroy(Unit $unit)

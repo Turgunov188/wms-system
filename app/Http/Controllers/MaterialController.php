@@ -19,9 +19,10 @@ class MaterialController extends Controller
         //
         try {
 
-            return ["data" => Material::with('units')
-                ->whereNull('delete_time')
-                ->get(),
+            return [
+                "data" => Material::with('units')
+                    ->whereNull('delete_time')
+                    ->get(),
                 "success" => true];
 
         } catch (\Exception $exception) {
@@ -73,7 +74,10 @@ class MaterialController extends Controller
     {
         //
         try {
-            return ["data" => Material::find($material), "success" => true];
+            return [
+                "data" => $material,
+                "success" => true
+            ];
         } catch (\Exception $exception) {
             return ["error" => $exception->getMessage(), "success" => false];
         }

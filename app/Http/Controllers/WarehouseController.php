@@ -6,6 +6,7 @@ use App\Models\Material;
 use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class WarehouseController extends Controller
@@ -20,7 +21,7 @@ class WarehouseController extends Controller
         //
         try {
             return [
-                "data" => Material::with(['warehouses', 'units'])
+                "data" => Material::with(["warehouses", "units"])
                     ->get(),
                 "success" => true
             ];
@@ -36,50 +37,78 @@ class WarehouseController extends Controller
             $products = $request->products;
 
             $productions = [];
+            $used_material = [];
             foreach ($products as $product) {
                 $query = Product::where("id", $product["product_id"])
                     ->with("materials", "materials.warehouses", "materials.units")
                     ->select("id", "code", "name")
                     ->first();
-//                return $query;
                 $temp_material = [];
                 foreach ($query->materials as $material) {
                     $material_item = [
-                        'warehouse_id' => $material['id'],
-                        'material_name' => $material['name'],
+                        "material_name" => $material["name"],
+                        //"material_id" => $material["id"]
                     ];
+
                     $amount = 0;
-                    $all_needed = $product['amount'] * $material['pivot']['quantity'];
+                    $all_needed = $product['amount'] * $material['pivot']['quantity'];//24
                     foreach ($material->warehouses as $warehouse) {
-                        $amount += $warehouse['remainder'];
-                        $warehouse_item = [
-                            'qty' => $warehouse['remainder'],
-                            'price' => $warehouse['price']
-                        ];
-                        $temp_material[] = array_merge($material_item, $warehouse_item);
+                        if (
+                            (isset($used_material[$warehouse['id']]) && $used_material[$warehouse['id']]['amount'] < $warehouse['remainder']) ||
+                            !isset($used_material[$warehouse['id']])
+                            && $amount < $all_needed
+                        ){
+                            $used_ws_amount = isset($used_material[$warehouse['id']]) ? $used_material[$warehouse['id']]['amount'] : 0;
+                            $warehouse_item = [
+                                'warehouse_id' => $warehouse['id'],
+                                'qty' => $amount + $warehouse['remainder'] - $used_ws_amount > $all_needed ? $all_needed - $amount : $warehouse["remainder"] - $used_ws_amount,
+                                'price' => $warehouse['price']
+                            ];
+                            $temp_material[] = array_merge($material_item, $warehouse_item);
+
+                            if ($amount + $warehouse['remainder']  - $used_ws_amount > $all_needed){
+                                if (isset($used_material[$warehouse['id']])){
+                                    $used_material[$warehouse['id']]['amount'] += $all_needed - $amount;
+                                }else{
+                                    $used_material[$warehouse['id']] = [
+                                        'amount' => $all_needed - $amount
+                                    ];
+                                }
+                                $amount += $all_needed - $amount;
+                            }else{
+                                if (isset($used_material[$warehouse['id']])){
+                                    $used_material[$warehouse['id']]['amount'] += $warehouse['remainder'] - $used_ws_amount;
+                                }else{
+                                    $used_material[$warehouse['id']] = [
+                                        'amount' => $warehouse['remainder']
+                                    ];
+                                }
+                                $amount += $warehouse['remainder'] - $used_ws_amount;
+                            }
+                        }
+
                     }
                     if ($amount < $all_needed) {
-                        $material[] = array_merge($material_item, [
-                            'warehouse' => null,
+                        $material_missing = array_merge($material_item, [
+                            'warehouse_id' => null,
                             'price' => null,
                             'qty' => $all_needed - $amount
                         ]);
+                        $temp_material[] = $material_missing;
                     }
-                    $temp_material[] = $material_item;
                 }
+
 
                 $productions[] = [
                     "id" => $query->id,
-                    'product_name' => $query->name,
-                    'product_code' => $query->code,
-                    'product_qty' => $product['amount'],
-                    'product_materials' => $temp_material,
+                    "product_name" => $query->name,
+                    "product_code" => $query->code,
+                    "product_qty" => $product["amount"],
+                    "product_materials" => $temp_material,
                 ];
-
             }
 
             return ["data" => $productions, "success" => true];
-
         } catch (\Exception $exception) {
             return ["error" => $exception->getMessage(), "success" => false];
         }
@@ -128,7 +157,7 @@ class WarehouseController extends Controller
     {
         //
         try {
-            return ["data" => Warehouse::find($warehouse), "success" => true];
+            return ["data" => $warehouse, "success" => true];
         } catch (\Exception $exception) {
             return ["error" => $exception->getMessage(), "success" => false];
         }

@@ -71,7 +71,7 @@ class ProductMaterialController extends Controller
     {
         //
         try {
-            return ["data" => ProductMaterial::find($productMaterial), "success" => true];
+            return ["data" => $productMaterial, "success" => true];
         } catch (\Exception $exception) {
             return ["error" => $exception->getMessage(), "success" => false];
         }

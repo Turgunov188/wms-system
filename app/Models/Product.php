@@ -13,11 +13,11 @@ class Product extends Model
 
     public function units()
     {
-        return $this->belongsTo(Unit::class, 'unit_id')->select(['id', 'name']);
+        return $this->belongsTo(Unit::class, "unit_id")->select(["id", "name"]);
     }
 
     public function materials()
     {
-        return $this->belongsToMany(Material::class, 'product_materials')->withPivot(["quantity"])->select(["materials.id", "name", "unit_id"]);
+        return $this->belongsToMany(Material::class, "product_materials")->withPivot(["quantity"])->select(["materials.id", "name", "unit_id"]);
     }
 }

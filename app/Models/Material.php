@@ -18,6 +18,6 @@ class Material extends Model
 
     public function warehouses()
     {
-        return $this->hasMany(Warehouse::class)->select(["id", "material_id", "remainder", "price"]);
+        return $this->hasMany(Warehouse::class)->select(["id", "material_id", "remainder", "price"])->orderBy('id');
     }
 }

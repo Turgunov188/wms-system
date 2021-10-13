@@ -104,7 +104,7 @@
                         "name": "product",
                         "in": "path",
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
